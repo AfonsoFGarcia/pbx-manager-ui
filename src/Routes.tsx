@@ -8,7 +8,7 @@ import VerifyCid from "./VerifyCid";
 
 const routes = createBrowserRouter([
   {
-    path: "/ui/",
+    path: "/",
     element: (<App />),
     children:[
       {
