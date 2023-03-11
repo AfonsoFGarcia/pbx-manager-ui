@@ -1,4 +1,4 @@
-import { Box, Button, Unstable_Grid2 as Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { Button, Unstable_Grid2 as Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import axios from "axios"
 import useAxios from "axios-hooks"
 import { useLoaderData, useRevalidator } from "react-router-dom"
@@ -27,7 +27,7 @@ const ListContacts = () => {
   }
 
   return (
-    <div>
+    <>
       <Grid container spacing={2} justifyContent="space-between" mb={1}>
         <Grid><Typography variant="h4">All Contacts</Typography></Grid>
         <Grid>
@@ -58,7 +58,7 @@ const ListContacts = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </>
   )
 }
 

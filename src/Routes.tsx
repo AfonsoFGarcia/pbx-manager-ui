@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AddContact from "./AddContact";
 import App from "./App";
+import CallHistoryList, { loadCallHistory } from "./CallHistoryList";
 import EditContact, { loadContact } from "./EditContact";
 import ListContacts, { loadContacts } from "./ListContacts";
 import VerifyCid from "./VerifyCid";
@@ -27,7 +27,8 @@ const routes = createBrowserRouter([
       },
       {
         path: "caller-id/inbound",
-        element: (<Typography>Inbound history</Typography>)
+        loader: loadCallHistory,
+        element: (<CallHistoryList />)
       },
       {
         path: "caller-id/verify",

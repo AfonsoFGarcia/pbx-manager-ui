@@ -6,11 +6,11 @@ import { useDebounce } from "use-debounce"
 const VerifyCid = () => {
   const [callerId, setCallerId] = useState<String>("")
   const [debouncedCallerId] = useDebounce(callerId, 500)
-  const [{data}, refreshData] = useAxios(`https://pbx-manager.afonsogarcia.dev/api/cid/${debouncedCallerId}`)
+  const [{data}, refreshData] = useAxios(`https://pbx-manager.afonsogarcia.dev/api/cid/check/${debouncedCallerId}`)
 
   useEffect(() => {
     refreshData()
-  }, [callerId])
+  }, [callerId, refreshData])
 
   return (
     <Paper>
