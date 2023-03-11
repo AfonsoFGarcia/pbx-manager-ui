@@ -18,10 +18,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Java
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 19
+
+      - name: Install dependencies
+        run: npm install --production
 
       - name: Build PBX-Manager-UI production
         run: npm run build
