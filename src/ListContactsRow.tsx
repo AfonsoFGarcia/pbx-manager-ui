@@ -27,7 +27,7 @@ const ListContactsRow = ({ row, deleteAndReload }: ListContactsRowProps) => {
       <TableCell>{row.officeMobileNumber ?? "-"}</TableCell>
       <TableCell>{row.otherNumber ?? "-"}</TableCell>
       <TableCell>
-        <IconButton aria-label="edit" onClick={() => navigate(`/ui/contacts/${row.id}`)}>
+        <IconButton aria-label="edit" onClick={() => navigate(`/contacts/${row.id}`)}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="delete" onClick={() => deleteAndReload(row.id)}>

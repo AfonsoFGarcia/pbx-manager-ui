@@ -13,13 +13,13 @@ const Navigation = () => {
       <ListSubheader component="div" inset>
         Contacts
       </ListSubheader>
-      <ListItemButton onClick={() => navigate("/ui/contacts/all")}>
+      <ListItemButton onClick={() => navigate("/contacts/all")}>
         <ListItemIcon>
           <ContactsIcon />
         </ListItemIcon>
         <ListItemText primary="Show All Contacts" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/ui/contacts/add")}>
+      <ListItemButton onClick={() => navigate("/contacts/add")}>
         <ListItemIcon>
           <PersonAddIcon />
         </ListItemIcon>
@@ -29,13 +29,13 @@ const Navigation = () => {
       <ListSubheader component="div" inset>
         Caller ID
       </ListSubheader>
-      <ListItemButton onClick={() => navigate("/ui/caller-id/inbound")}>
+      <ListItemButton onClick={() => navigate("/caller-id/inbound")}>
         <ListItemIcon>
           <CallReceivedIcon />
         </ListItemIcon>
         <ListItemText primary="Show Inbound History" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/ui/caller-id/verify")}>
+      <ListItemButton onClick={() => navigate("/caller-id/verify")}>
         <ListItemIcon>
           <PhoneIcon />
         </ListItemIcon>

@@ -44,7 +44,7 @@ const ContactForm = ({ contact, submitContact }: ContactFormProps) => {
     submitContact({
       data: data
     }).then(() => {
-      navigate("/ui/contacts/all")
+      navigate("/contacts/all")
     })
   };
 
