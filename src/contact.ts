@@ -6,5 +6,6 @@ export interface Contact {
   officeMobileNumber: string | null, 
   homeNumber: string | null, 
   mobileNumber: string | null, 
-  otherNumber: string | null
+  otherNumber: string | null,
+  synced: boolean,
 }

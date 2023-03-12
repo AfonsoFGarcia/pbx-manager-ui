@@ -22,12 +22,12 @@ interface ContactFormProps {
 
 const schema = yup.object({
   name: yup.string().required(),
-  internalExtension: yup.string().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  homeNumber: yup.string().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  mobileNumber: yup.string().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  officeNumber: yup.string().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  officeMobileNumber: yup.string().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  otherNumber: yup.string().matches(/^\+?\d+$|^$/, "Invalid phone number"),
+  internalExtension: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
+  homeNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
+  mobileNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
+  officeNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
+  officeMobileNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
+  otherNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
 }).required();
 
 const ContactForm = ({ contact, submitContact }: ContactFormProps) => {
@@ -62,11 +62,11 @@ const ContactForm = ({ contact, submitContact }: ContactFormProps) => {
 
       <TextField fullWidth label="Name (required)" variant="outlined" margin="normal" InputProps={{
         startAdornment: <InputAdornment position="start"> <BadgeIcon /></InputAdornment>,
-      }} {...register("name")} error={errors.name !== undefined} helperText={errors.name?.message} />
+      }} {...register("name")} error={errors.name !== undefined} helperText={errors.name?.message} disabled={contact && contact.synced} />
 
       <TextField fullWidth label="Internal Extension" variant="outlined" margin="normal" InputProps={{
         startAdornment: <InputAdornment position="start"> <SipIcon /></InputAdornment>,
-      }} {...register("internalExtension")} />
+      }} {...register("internalExtension")}  disabled={contact && contact.synced} />
 
       <TextField fullWidth label="Home Number" variant="outlined" margin="normal" InputProps={{
         startAdornment: <InputAdornment position="start"> <HomeIcon /></InputAdornment>,
