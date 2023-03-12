@@ -4,7 +4,7 @@ export const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
     primary: {
-      main: '#009D9D',
+      main: '#398378',
     },
     secondary: {
       main: '#af77cb',
@@ -16,4 +16,7 @@ export const themeOptions: ThemeOptions = {
       main: '#a93864',
     },
   },
+  typography: {
+    fontFamily: 'Nunito Sans'
+  }
 };

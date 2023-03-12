@@ -37,9 +37,18 @@ const App = () => {
             variant="h6"
             color="inherit"
             noWrap
-            sx={{ flexGrow: 1 }}
+            sx={{ fontWeight: '900', color: '#31C48D'}}
           >
-            PBX Manager
+            PBX&nbsp;
+          </Typography>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1, fontWeight: '900', color: '#ADBFB8'}}
+          >
+            MANAGER
           </Typography>
         </Toolbar>
       </PbxManagerAppBar>
