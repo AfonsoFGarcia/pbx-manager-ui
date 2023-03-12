@@ -61,7 +61,7 @@ const ListContacts = () => {
           </TableHead>
           <TableBody>
             {contacts?.map((row) => (
-              <ListContactsRow row={row} deleteAndReload={deleteAndReload} />
+              <ListContactsRow row={row} deleteAndReload={deleteAndReload} key={row.id} />
             ))}
           </TableBody>
         </Table>

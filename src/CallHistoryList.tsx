@@ -43,7 +43,7 @@ const CallHistoryList = () => {
                 return 1;
               return 0;
             }).map((row) => (
-              <TableRow>
+              <TableRow key={row.id}>
                 <TableCell>{moment.unix(row.callTime).format('YYYY/MM/DD HH:mm:ss')}</TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.number ?? "-"}</TableCell>

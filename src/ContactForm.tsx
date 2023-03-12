@@ -1,4 +1,4 @@
-import { Button, InputAdornment, TextField, Typography, Unstable_Grid2 as Grid } from "@mui/material";
+import { Button, Typography, Unstable_Grid2 as Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Contact } from "./contact";
 import SaveIcon from '@mui/icons-material/Save';
@@ -14,6 +14,8 @@ import { RefetchFunction } from "axios-hooks";
 import { removeEmptyFields } from "./utils";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from "react";
+import ContactFormTextField from "./ContactFormTextField";
 
 interface ContactFormProps {
   contact?: Contact,
@@ -21,28 +23,49 @@ interface ContactFormProps {
 }
 
 const schema = yup.object({
-  name: yup.string().required(),
-  internalExtension: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  homeNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  mobileNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  officeNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  officeMobileNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
-  otherNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "Invalid phone number"),
+  name: yup.string().trim().required("Name cannot be empty"),
+  internalExtension: yup.string().nullable().matches(/^\+?\d+$|^$/, "This phone number is not valid"),
+  homeNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "This phone number is not valid"),
+  mobileNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "This phone number is not valid"),
+  officeNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "This phone number is not valid"),
+  officeMobileNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "This phone number is not valid"),
+  otherNumber: yup.string().nullable().matches(/^\+?\d+$|^$/, "This phone number is not valid"),
 }).required();
 
 const ContactForm = ({ contact, submitContact }: ContactFormProps) => {
   const navigate = useNavigate()
-  const { handleSubmit, register, formState: { isValid, errors } } = useForm<Contact>({
+  const { handleSubmit, formState: { isValid }, control, trigger, watch } = useForm<Contact>({
     resolver: yupResolver(schema),
-    ...(contact ? {
-      defaultValues: contact
-    } : {})
+    defaultValues: {
+      name: "", 
+      internalExtension: "", 
+      officeNumber: "", 
+      officeMobileNumber: "", 
+      homeNumber: "", 
+      mobileNumber: "", 
+      otherNumber: "",
+      synced: false,
+      ...contact
+    }
   });
+
+  watch(() => trigger())
+
+  useEffect(() => {
+    const subscription = watch((_, {name}) => {
+      console.log(name)
+      trigger(name)
+    })
+    return () => subscription.unsubscribe()
+  }, [watch, trigger])
 
   const onSubmit = (data: Contact) => {
     removeEmptyFields(data)
     submitContact({
-      data: data
+      data: {
+        ...data,
+        name: data.name.trim()
+      }
     }).then(() => {
       navigate("/contacts/all")
     })
@@ -60,33 +83,58 @@ const ContactForm = ({ contact, submitContact }: ContactFormProps) => {
         </Grid>
       </Grid>
 
-      <TextField fullWidth label="Name (required)" variant="outlined" margin="normal" InputProps={{
-        startAdornment: <InputAdornment position="start"> <BadgeIcon /></InputAdornment>,
-      }} {...register("name")} error={errors.name !== undefined} helperText={errors.name?.message} disabled={contact && contact.synced} />
+      <ContactFormTextField 
+        name="name" 
+        control={control} 
+        disabled={contact && contact.synced} 
+        label="Name (required)" 
+        icon={<BadgeIcon />} 
+        extraHelperText={contact && contact.synced && "This contact has been synced with FreePBX and you cannot edit the name."}  
+      />
 
-      <TextField fullWidth label="Internal Extension" variant="outlined" margin="normal" InputProps={{
-        startAdornment: <InputAdornment position="start"> <SipIcon /></InputAdornment>,
-      }} {...register("internalExtension")}  disabled={contact && contact.synced} />
+      <ContactFormTextField 
+        name="internalExtension" 
+        control={control} 
+        disabled={contact && contact.synced} 
+        label="Internal Extension" 
+        icon={<SipIcon />} 
+        extraHelperText={contact && contact.synced && "This contact has been synced with FreePBX and you cannot edit the internal extension."}  
+      />
 
-      <TextField fullWidth label="Home Number" variant="outlined" margin="normal" InputProps={{
-        startAdornment: <InputAdornment position="start"> <HomeIcon /></InputAdornment>,
-      }} {...register("homeNumber")} />
+      <ContactFormTextField 
+        name="homeNumber" 
+        control={control} 
+        label="Home Number" 
+        icon={<HomeIcon />} 
+      />
 
-      <TextField fullWidth label="Mobile Number" variant="outlined" margin="normal" InputProps={{
-        startAdornment: <InputAdornment position="start"> <SmartphoneIcon /></InputAdornment>,
-      }} {...register("mobileNumber")} />
+      <ContactFormTextField 
+        name="mobileNumber" 
+        control={control} 
+        label="Mobile Number" 
+        icon={<SmartphoneIcon />} 
+      />
 
-      <TextField fullWidth label="Office Number" variant="outlined" margin="normal" InputProps={{
-        startAdornment: <InputAdornment position="start"> <BusinessIcon /></InputAdornment>,
-      }} {...register("officeNumber")} />
+      <ContactFormTextField 
+        name="officeNumber" 
+        control={control} 
+        label="Office Number" 
+        icon={<BusinessIcon />} 
+      />
 
-      <TextField fullWidth label="Office Mobile Number" variant="outlined" margin="normal" InputProps={{
-        startAdornment: <InputAdornment position="start"> <PhonelinkIcon /></InputAdornment>,
-      }} {...register("officeMobileNumber")} />
+      <ContactFormTextField 
+        name="officeMobileNumber" 
+        control={control} 
+        label="Office Mobile Number" 
+        icon={<PhonelinkIcon />} 
+      />
 
-      <TextField fullWidth label="Other Number" variant="outlined" margin="normal" InputProps={{
-        startAdornment: <InputAdornment position="start"> <DeviceUnknownIcon /></InputAdornment>,
-      }} {...register("otherNumber")} />
+      <ContactFormTextField 
+        name="otherNumber" 
+        control={control} 
+        label="Other Number" 
+        icon={<DeviceUnknownIcon />} 
+      />
     </form>
   )
 }
