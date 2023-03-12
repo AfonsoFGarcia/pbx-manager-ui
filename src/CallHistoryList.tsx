@@ -4,9 +4,10 @@ import { CallHistory } from "./callHistory"
 import { Button, Unstable_Grid2 as Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import moment from "moment";
+import { pbxManagerUrl } from "./constants";
 
 export const loadCallHistory = async (): Promise<CallHistory[]> => {
-  const data = (await axios.get<CallHistory[]>(`https://pbx-manager.afonsogarcia.dev/api/call-history/`)).data
+  const data = (await axios.get<CallHistory[]>(pbxManagerUrl("/call-history/"))).data
   return data;
 }
 

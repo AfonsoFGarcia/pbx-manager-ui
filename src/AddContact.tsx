@@ -1,9 +1,10 @@
 import useAxios from "axios-hooks";
+import { pbxManagerUrl } from "./constants";
 import ContactForm from "./ContactForm";
 
 const AddContact = () => {
   const [, submitContact] = useAxios({
-    url: `https://pbx-manager.afonsogarcia.dev/api/contacts/`,
+    url: pbxManagerUrl("/contacts/"),
     method: "POST"
   }, {
     manual: true

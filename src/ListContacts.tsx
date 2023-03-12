@@ -5,9 +5,12 @@ import { useLoaderData, useRevalidator } from "react-router-dom"
 import { Contact } from "./contact"
 import ListContactsRow from "./ListContactsRow"
 import RefreshIcon from '@mui/icons-material/Refresh';
+import SyncIcon from '@mui/icons-material/Sync';
+import useSyncWithFreePbx from "./useSyncWithFreePbx"
+import { pbxManagerUrl } from "./constants"
 
 export const loadContacts = async (): Promise<Contact[]> => {
-  const data = (await axios.get<Contact[]>(`https://pbx-manager.afonsogarcia.dev/api/contacts/`)).data
+  const data = (await axios.get<Contact[]>(pbxManagerUrl("/contacts/"))).data
   return data;
 }
 
@@ -19,10 +22,11 @@ const ListContacts = () => {
   }, {
     manual: true
   })
+  const syncWithFreePbx = useSyncWithFreePbx(() => revalidateContacts.revalidate())
 
   const deleteAndReload = (contactId: number) => {
     executeDelete({
-      url: `https://pbx-manager.afonsogarcia.dev/api/contacts/${contactId}`
+      url: pbxManagerUrl(`/contacts/${contactId}`)
     }).then(() => revalidateContacts.revalidate())
   }
 
@@ -31,6 +35,10 @@ const ListContacts = () => {
       <Grid container spacing={2} justifyContent="space-between" mb={1}>
         <Grid><Typography variant="h4">All Contacts</Typography></Grid>
         <Grid>
+          <Button color="warning" aria-label="save" variant="contained" size="large" onClick={() => syncWithFreePbx()} sx={{marginRight: 2}}>
+            <SyncIcon /> &nbsp;&nbsp;
+            <Typography>Sync with FreePBX</Typography>
+          </Button>
           <Button color="primary" aria-label="save" variant="contained" size="large" onClick={() => revalidateContacts.revalidate()}>
             <RefreshIcon /> &nbsp;&nbsp;
             <Typography>Refresh</Typography>
@@ -52,7 +60,7 @@ const ListContacts = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {contacts?.sort((a, b) => a.name.localeCompare(b.name)).map((row) => (
+            {contacts?.map((row) => (
               <ListContactsRow row={row} deleteAndReload={deleteAndReload} />
             ))}
           </TableBody>

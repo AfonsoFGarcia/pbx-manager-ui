@@ -2,11 +2,12 @@ import { Box, Paper, TextField, Typography } from "@mui/material"
 import useAxios from "axios-hooks"
 import { useEffect, useState } from "react"
 import { useDebounce } from "use-debounce"
+import { pbxManagerUrl } from "./constants"
 
 const VerifyCid = () => {
   const [callerId, setCallerId] = useState<String>("")
   const [debouncedCallerId] = useDebounce(callerId, 500)
-  const [{data}, refreshData] = useAxios(`https://pbx-manager.afonsogarcia.dev/api/cid/check/${debouncedCallerId}`)
+  const [{data}, refreshData] = useAxios(pbxManagerUrl(`/cid/check/${debouncedCallerId}`))
 
   useEffect(() => {
     refreshData()

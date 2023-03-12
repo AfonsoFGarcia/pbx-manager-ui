@@ -3,9 +3,10 @@ import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { Contact } from "./contact";
 import useAxios from "axios-hooks";
 import ContactForm from "./ContactForm";
+import { pbxManagerUrl } from "./constants";
 
 export const loadContact = async ({ params }: LoaderFunctionArgs): Promise<Contact> => {
-  const data = (await axios.get<Contact>(`https://pbx-manager.afonsogarcia.dev/api/contacts/${params.contactId}`)).data
+  const data = (await axios.get<Contact>(pbxManagerUrl(`/contacts/${params.contactId}`))).data
   return data;
 }
 
@@ -13,7 +14,7 @@ const EditContact = () => {
   const contact = useLoaderData() as Contact;
 
   const [, submitContact] = useAxios({
-    url: `https://pbx-manager.afonsogarcia.dev/api/contacts/${contact.id}`,
+    url: pbxManagerUrl(`/contacts/${contact.id}`),
     method: "PATCH"
   }, {
     manual: true
