@@ -1,6 +1,6 @@
 import useAxios from "axios-hooks";
-import { pbxManagerUrl } from "./constants";
 import ContactForm from "./ContactForm";
+import pbxManagerUrl from "./pbxManagerUrl";
 
 const AddContact = () => {
   const [, submitContact] = useAxios({

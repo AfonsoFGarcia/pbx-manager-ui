@@ -3,7 +3,7 @@ import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { Contact } from "./contact";
 import useAxios from "axios-hooks";
 import ContactForm from "./ContactForm";
-import { pbxManagerUrl } from "./constants";
+import pbxManagerUrl from "./pbxManagerUrl";
 
 export const loadContact = async ({ params }: LoaderFunctionArgs): Promise<Contact> => {
   const data = (await axios.get<Contact>(pbxManagerUrl(`/contacts/${params.contactId}`))).data

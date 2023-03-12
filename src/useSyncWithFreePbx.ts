@@ -1,5 +1,5 @@
 import useAxios from "axios-hooks"
-import { pbxManagerUrl } from "./constants"
+import pbxManagerUrl from "./pbxManagerUrl"
 
 type UseSyncWithFreePbxCallback = () => void
 type UseSyncWithFreePbxReturn = () => void

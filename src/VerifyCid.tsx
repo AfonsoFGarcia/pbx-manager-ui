@@ -2,7 +2,7 @@ import { Box, Paper, TextField, Typography } from "@mui/material"
 import useAxios from "axios-hooks"
 import { useEffect, useState } from "react"
 import { useDebounce } from "use-debounce"
-import { pbxManagerUrl } from "./constants"
+import pbxManagerUrl from "./pbxManagerUrl"
 
 const VerifyCid = () => {
   const [callerId, setCallerId] = useState<String>("")

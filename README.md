@@ -1,3 +1,18 @@
+# PBX-Manager-UI
+
+## Running with docker
+
+You can overwrite the API url with your own env-config.js file, mounted as a volume. Here's an example of a docker-compose file with such setup:
+
+```yaml
+version: "3.8"
+services:
+  pbx-manager-ui:
+    image: ghcr.io/afonsofgarcia/pbx-manager-ui:main
+    volumes:
+      - "env-config.js:/var/www/env-config.js"
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

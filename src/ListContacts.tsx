@@ -7,7 +7,7 @@ import ListContactsRow from "./ListContactsRow"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SyncIcon from '@mui/icons-material/Sync';
 import useSyncWithFreePbx from "./useSyncWithFreePbx"
-import { pbxManagerUrl } from "./constants"
+import pbxManagerUrl from "./pbxManagerUrl"
 
 export const loadContacts = async (): Promise<Contact[]> => {
   const data = (await axios.get<Contact[]>(pbxManagerUrl("/contacts/"))).data
