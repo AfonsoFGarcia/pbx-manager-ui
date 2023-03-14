@@ -53,7 +53,6 @@ const ContactForm = ({ contact, submitContact }: ContactFormProps) => {
 
   useEffect(() => {
     const subscription = watch((_, {name}) => {
-      console.log(name)
       trigger(name)
     })
     return () => subscription.unsubscribe()
