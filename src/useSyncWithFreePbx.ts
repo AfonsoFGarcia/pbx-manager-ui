@@ -6,7 +6,9 @@ type UseSyncWithFreePbxReturn = () => void
 
 
 const useSyncWithFreePbx = (callback: UseSyncWithFreePbxCallback): UseSyncWithFreePbxReturn => {
-  const [, reload] = useAxios(pbxManagerUrl("/contacts/sync/"))
+  const [, reload] = useAxios(pbxManagerUrl("/contacts/sync/"), {
+    manual: true
+  })
   return () => {
     reload().then(it => callback())
   }
